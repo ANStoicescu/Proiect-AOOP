@@ -14,6 +14,7 @@ public abstract class Product {
         this.brand = brand;
         this.price = price;
         this.stock = stock;
+        supplier = null;
     }
 
     public long getId() {

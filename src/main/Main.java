@@ -63,13 +63,37 @@ public class Main {
                         System.out.println("Input-ul este invalid.");
                     }
                 }
+                case "search" -> {
+                    System.out.println("Please type the id of the product you're searching for:");
+                    shopService.searchProduct(shop,scanner.nextLine());
+                }
                 case "view" -> shopService.printProductDetails(shop);
                 case "add supplier" -> {
                     System.out.println("Please type the supplier's:\n" +
                             "name/phone/country");
                     shopService.addSupplier(shop, parseSupplier(scanner.nextLine()));
                 }
+                case "delete supplier" -> {
+                    System.out.println("Please type the id of the supplier you want to delete");
+                    line = scanner.nextLine();
+                    try {
+                        long id = Long.parseLong(line);
+                        shopService.deleteSupplier(shop, id);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Input-ul este invalid.");
+                    }
+                }
+                case "search supplier" -> {
+                    System.out.println("Please type the id of the supplier you're searching for:");
+                    shopService.searchSupplier(shop,scanner.nextLine());
+                }
                 case "view suppliers" -> shopService.printSupplierDetails(shop);
+                case "add supplier to product" -> {
+                    System.out.println("Please type the supplier's id and then the product's id:\n" +
+                            "supplier's id/product's id");
+
+                    shopService.addSupplierToProduct(shop,scanner.nextLine());
+                }
                 case "exit" -> System.exit(0);
                 default -> System.out.println("This command does not exist.");
             }
@@ -200,7 +224,7 @@ public class Main {
             String name = attributes[0];
             String phone = attributes[1];
             String country = attributes[2];
-            return new Supplier(name, phone, country);
+            return new Supplier(new Random().nextInt(100), name, phone, country);
         } catch (NumberFormatException e) {
             System.out.println("Input-ul este invalid.");
         } catch (ArrayIndexOutOfBoundsException e) {

@@ -16,10 +16,10 @@ public class ShopService {
     public void deleteProduct(Shop shop, Long id) {
         Product[] products = shop.getProducts();
         boolean gasit = false;
-        Product[] newProducts = new Product[10];
+        Product[] newProducts = new Product[products.length];
         int k = 0;
         for (Product p : products) {
-            if (p == null) break;
+            if (p == null) continue;
             if (id.equals(p.getId())) {
                 System.out.println("Gasit si sters.");
                 gasit = true;
@@ -27,19 +27,64 @@ public class ShopService {
             }
             newProducts[k++] = p;
         }
-        if (gasit == false)
+        if (!gasit)
             System.out.println("Nu am gasit.");
         shop.setProducts(newProducts);
     }
 
-    public void printProductDetails(Shop shop) {
-        for (Product p : shop.getProducts()) {
-            if (p != null) {
-                String attributeNames[] = p.getAttributeNames().split("/");
-                String attributes[] = p.toString().split("/");
+    public void searchProduct(Shop shop, String line) {
+        Long id;
+        boolean gasit = false;
+        try {
+            id = Long.parseLong(line);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Input invalid.");
+            return;
+        }
+        for(Product p : shop.getProducts()){
+            if(p!=null && id.equals(p.getId())) {
+                gasit = true;
+                String[] attributeNames = p.getAttributeNames().split("/");
+                String[] attributes = p.toString().split("/");
                 System.out.println("ID: " + attributes[0]);
                 for (int i = 1; i < attributes.length; i++)
                     System.out.println("\t" + attributeNames[i - 1] + ": " + attributes[i]);
+                Supplier s = p.getSupplier();
+                if (s != null) {
+                    attributeNames = s.getAttributeNames().split("/");
+                    attributes = s.toString().split("/");
+                    System.out.println("\tSupplier ID: " + attributes[0]);
+                    for (int i = 1; i < attributes.length; i++)
+                        System.out.println("\t\t" + attributeNames[i - 1] + ": " + attributes[i]);
+                } else {
+                    System.out.println("\tThis product doesn't have a supplier assigned.");
+                }
+            }
+        }
+        if(!gasit) System.out.println("Nu am gasit un produs cu acest id.");
+    }
+
+
+    public void printProductDetails(Shop shop) {
+        for (Product p : shop.getProducts()) {
+            if (p != null) {
+                String[] attributeNames = p.getAttributeNames().split("/");
+                String[] attributes = p.toString().split("/");
+                System.out.println("ID: " + attributes[0]);
+                for (int i = 1; i < attributes.length; i++)
+                    System.out.println("\t" + attributeNames[i - 1] + ": " + attributes[i]);
+                Supplier s = p.getSupplier();
+                if (s != null) {
+                    attributeNames = s.getAttributeNames().split("/");
+                    attributes = s.toString().split("/");
+                    System.out.println("\tSupplier ID: " + attributes[0]);
+                    for (int i = 1; i < attributes.length; i++)
+                        System.out.println("\t\t" + attributeNames[i - 1] + ": " + attributes[i]);
+                }
+                else {
+                    System.out.println("\tThis product doesn't have a supplier assigned.");
+                }
             }
         }
     }
@@ -59,14 +104,62 @@ public class ShopService {
         shop.getSuppliers()[lastIndex] = supplier;
     }
 
+    public void deleteSupplier(Shop shop, Long id) {
+        Supplier[] suppliers = shop.getSuppliers();
+        boolean gasit = false;
+        Supplier[] newSuppliers = new Supplier[suppliers.length];
+        int k = 0;
+        for (Supplier s : suppliers) {
+            if (s == null) continue;
+            if (id.equals(s.getId())) {
+                System.out.println("Gasit si sters.");
+                Product[] products = shop.getProducts();
+                for (Product p : products) {
+                    if(p == null) continue;
+                    if(p.getSupplier()==s)
+                        p.setSupplier(null);
+                }
+                gasit = true;
+                continue;
+            }
+            newSuppliers[k++] = s;
+        }
+        if (!gasit)
+            System.out.println("Nu am gasit.");
+        shop.setSuppliers(newSuppliers);
+    }
+
+    public void searchSupplier(Shop shop, String line) {
+        Long id;
+        boolean gasit = false;
+        try {
+            id = Long.parseLong(line);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Input invalid.");
+            return;
+        }
+        for(Supplier s: shop.getSuppliers()){
+            if(s!=null && id.equals(s.getId())){
+                gasit = true;
+                String[] attributeNames = s.getAttributeNames().split("/");
+                String[] attributes = s.toString().split("/");
+                System.out.println("ID: " + attributes[0]);
+                for (int i = 1; i < attributes.length; i++)
+                    System.out.println("\t" + attributeNames[i - 1] + ": " + attributes[i]);
+            }
+        }
+        if(!gasit) System.out.println("Nu am gasit un supplier cu acest id.");
+    }
+
     public void printSupplierDetails(Shop shop) {
         for (Supplier s : shop.getSuppliers()) {
             if (s != null) {
-                String attributeNames[] = s.getAttributeNames().split("/");
-                String attributes[] = s.toString().split("/");
-                System.out.println(attributeNames[0] + ": " + attributes[0]);
+                String[] attributeNames = s.getAttributeNames().split("/");
+                String[] attributes = s.toString().split("/");
+                System.out.println("ID: " + attributes[0]);
                 for (int i = 1; i < attributes.length; i++)
-                    System.out.println("\t" + attributeNames[i] + ": " + attributes[i]);
+                    System.out.println("\t" + attributeNames[i - 1] + ": " + attributes[i]);
             }
         }
     }
@@ -79,4 +172,36 @@ public class ShopService {
         }
         return nr;
     }
+
+    public void addSupplierToProduct(Shop shop, String line) {
+        long sid,pid;
+        boolean gasitSupplier = false;
+        boolean gasitProdus = false;
+        try {
+            String[] ids = line.split("/");
+            sid = Long.parseLong(ids[0]);
+            pid = Long.parseLong(ids[1]);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Input invalid");
+            return;
+        }
+        for (Product p : shop.getProducts()) {
+            if (pid == p.getId()) {
+                gasitProdus = true;
+                for (Supplier s : shop.getSuppliers()) {
+                    if (sid == s.getId()) {
+                        gasitSupplier = true;
+                        p.setSupplier(s);
+                        break;
+                    }
+                }
+                if(!gasitSupplier)System.out.println("Nu am gasit supplier cu acest id.");
+                break;
+            }
+        }
+        if(!gasitProdus)System.out.println("Nu am gasit produs cu acest id.");
+    }
+
+
 }
