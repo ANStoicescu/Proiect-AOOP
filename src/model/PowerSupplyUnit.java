@@ -1,38 +1,38 @@
 package model;
 
 public class PowerSupplyUnit extends Product{
-    private int Power;
-    private int Alimentation;
+    private int power;
+    private int alimentation;
 
     public PowerSupplyUnit(long id, String name, String brand, double price, int stock, int power, int alimentation) {
         super(id, name, brand, price, stock);
-        Power = power;
-        Alimentation = alimentation;
+        this.power = power;
+        this.alimentation = alimentation;
     }
 
     public int getPower() {
-        return Power;
+        return power;
     }
 
     public void setPower(int power) {
-        Power = power;
+        this.power = power;
     }
 
     public int getAlimentation() {
-        return Alimentation;
+        return alimentation;
     }
 
     public void setAlimentation(int alimentation) {
-        Alimentation = alimentation;
+        this.alimentation = alimentation;
     }
 
     @Override
-    public String getAttributeNames(){
-        return super.getAttributeNames() + "/" + "Power (W)" + "/" + "Alimentation";
+    public String getAttributeNames() {
+        return super.getAttributeNames() + "/" + "Power" + "/" + "Alimentation";
     }
 
     @Override
-    public String toString(){
-        return super.toString() + "/"+ Power + "/" + Alimentation;
+    public String toString() {
+        return super.toString() + "/" + power + "/" + alimentation;
     }
 }

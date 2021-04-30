@@ -1,23 +1,23 @@
 package model;
 
 public class RandomAcessMemory extends Memory {
-    private int frequecy;
+    private int frequency;
     private String memoryType;
-    private boolean RGB;
+    private boolean rgb;
 
-    public RandomAcessMemory(long id, String name, String brand, double price, int stock, double capacity, int frequecy, String memoryType, boolean RGB) {
+    public RandomAcessMemory(long id, String name, String brand, double price, int stock, double capacity, int frequency, String memoryType, boolean rgb) {
         super(id, name, brand, price, stock, capacity);
-        this.frequecy = frequecy;
+        this.frequency = frequency;
         this.memoryType = memoryType;
-        this.RGB = RGB;
+        this.rgb = rgb;
     }
 
-    public int getFrequecy() {
-        return frequecy;
+    public int getFrequency() {
+        return frequency;
     }
 
-    public void setFrequecy(int frequecy) {
-        this.frequecy = frequecy;
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
     }
 
     public String getMemoryType() {
@@ -28,21 +28,21 @@ public class RandomAcessMemory extends Memory {
         this.memoryType = memoryType;
     }
 
-    public boolean isRGB() {
-        return RGB;
+    public boolean isrgb() {
+        return rgb;
     }
 
-    public void setRGB(boolean RGB) {
-        this.RGB = RGB;
+    public void setrgb(boolean rgb) {
+        this.rgb = rgb;
     }
 
     @Override
     public String getAttributeNames() {
-        return super.getAttributeNames() + "/" + "Frequency" + "/" + "Memory Type" + "/" + "RGB";
+        return super.getAttributeNames() + "/" + "Frequency" + "/" + "Memory Type" + "/" + "rgb";
     }
 
     @Override
     public String toString() {
-        return super.toString() + "/" + frequecy + "/" + memoryType + "/" + RGB;
+        return super.toString() + "/" + frequency + "/" + memoryType + "/" + rgb;
     }
 }

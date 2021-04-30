@@ -4,13 +4,13 @@ public class GraphicalProcessingUnit extends Product{
     private String port;
     private int memory;
     private int bandWidth;
-    private boolean RGB;
-    public GraphicalProcessingUnit(long id, String name, String brand, double price, int stock, String port, int memory, int bandWidth, boolean RGB) {
+    private boolean rgb;
+    public GraphicalProcessingUnit(long id, String name, String brand, double price, int stock, String port, int memory, int bandWidth, boolean rgb) {
         super(id, name, brand, price, stock);
         this.port = port;
         this.memory = memory;
         this.bandWidth = bandWidth;
-        this.RGB = RGB;
+        this.rgb = rgb;
     }
 
     public String getPort() {
@@ -37,21 +37,21 @@ public class GraphicalProcessingUnit extends Product{
         this.bandWidth = bandWidth;
     }
 
-    public boolean isRGB() {
-        return RGB;
+    public boolean isrgb() {
+        return rgb;
     }
 
-    public void setRGB(boolean RGB) {
-        this.RGB = RGB;
+    public void setrgb(boolean rgb) {
+        this.rgb = rgb;
     }
 
     @Override
     public String getAttributeNames(){
-        return super.getAttributeNames() + "/" + "Port" + "/" + "Memory" + "/" + "BandWidth" + "/" + "RGB";
+        return super.getAttributeNames() + "/" + "Port" + "/" + "Memory" + "/" + "BandWidth" + "/" + "rgb";
     }
 
     @Override
     public String toString(){
-        return super.toString() + "/"+ port + "/" + memory + "/" + bandWidth + "/" + RGB;
+        return super.toString() + "/"+ port + "/" + memory + "/" + bandWidth + "/" + rgb;
     }
 }

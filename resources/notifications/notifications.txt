@@ -1,0 +1,6 @@
+Notification <Added GPU> at the time 2021-04-25T12:11:50.465112844
+Notification <Added GPU> Timestamp: 2021-04-25T12:18:43.688441102
+Notification <Added RAM> Timestamp: 2021-04-25T12:19:07.780275308
+Notification <Added supplier> Timestamp: 2021-04-25T12:19:18.223700105
+Notification <Added supplier> Timestamp: 2021-04-25T12:19:19.523150501
+Notification <Product with id 81 got assigned the supplier with id 44> Timestamp: 2021-04-25T12:19:57.229231303

@@ -1,0 +1,12 @@
+Supplier,87,Metro,0742555777,Romania
+Supplier,88,Metro,0742555777,Romania
+Supplier,58,Emag,0766345678,Romania
+HardDiskDrive,-1,5,TR-98,Segate,168.56,4,500.0,7200,3.5",SATA-3
+HardDiskDrive,-1,54,TR-98,Segate,168.56,4,500.0,7200,3.5",SATA-3
+CentralProcessingUnit,88,49,9068H,Intel,200.0,6,PC-56,2600,4,2048
+GraphicalProcessingUnit,-1,8,GTX2080,Nvidia,1000.0,7,PCIe 4,4096,700,true
+HardDiskDrive,-1,5,TR-98,Segate,168.56,4,500.0,7200,3.5",SATA-3
+RandomAcessMemory,-1,9,Ult-67,Kingston,99.89,8,16.0,2600,DDR3,false
+SolidStateDrive,58,12,HD-2000,Samsung,399.99,5,4000.0,m.2,m.2
+RandomAcessMemory,-1,44,Ult-67,Kingston,99.89,8,16.0,2600,DDR4,true
+PowerSupplyUnit,-1,34,Milan-700,Acer,299.99,3,700,230
