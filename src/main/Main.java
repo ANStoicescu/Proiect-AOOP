@@ -10,12 +10,14 @@ public class Main {
         Shop shop = new Shop();
         ShopService shopService = new ShopService();
 
-        try{
-            CsvService.loadCvs(shop, shopService);
-        }
-        catch(Exception e){
-
-        }
+        SQLService.loadProductCPU(shop, shopService);
+        SQLService.loadProductGPU(shop, shopService);
+        SQLService.loadProductHDD(shop, shopService);
+        SQLService.loadProductPSU(shop, shopService);
+        SQLService.loadProductRAM(shop, shopService);
+        SQLService.loadProductSSD(shop, shopService);
+        SQLService.loadSupplier(shop, shopService);
+        SQLService.loadSupplierforProduct(shop, shopService);
 
         while (true) {
             System.out.println("Please type a command:");
@@ -103,6 +105,14 @@ public class Main {
                     NotificationService.viewNotifications();
                 }
                 case "update csv" -> CsvService.updateCvs(shop, shopService);
+                case "load cvs" -> {
+                    try{
+                        CsvService.loadCvs(shop, shopService);
+                    }
+                    catch(Exception e){
+
+                    }
+                }
                 case "exit" -> System.exit(0);
                 default -> System.out.println("This command does not exist.");
             }

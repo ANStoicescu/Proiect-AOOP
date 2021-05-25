@@ -36,6 +36,7 @@ public class ShopService {
         if (!found)
             System.out.println("Nu am gasit.");
         shop.setProducts(newProducts);
+        SQLService.deleteProduct(id);
     }
 
     public void searchProduct(Shop shop, String line) {
@@ -143,6 +144,7 @@ public class ShopService {
         if (!found)
             System.out.println("Nu am gasit.");
         shop.setSuppliers(newSuppliers);
+        SQLService.deleteSupplier(id);
     }
 
     public void searchSupplier(Shop shop, String line) {
@@ -190,14 +192,47 @@ public class ShopService {
     }
 
     public void addSupplierToProduct(Shop shop, String line) {
-        long sid,pid;
+        int sid,pid;
         boolean foundSupplier = false;
         boolean foundProduct = false;
         try {
 
             String[] ids = line.split("/");
-            sid = Long.parseLong(ids[0]);
-            pid = Long.parseLong(ids[1]);
+            sid = Integer.parseInt(ids[0]);
+            pid = Integer.parseInt(ids[1]);
+        }
+        catch (NumberFormatException e){
+            System.out.println("Input invalid.");
+            return;
+        }
+        for (Product p : shop.getProducts()) {
+            if (pid == p.getId()) {
+                foundProduct = true;
+                for (Supplier s : shop.getSuppliers()) {
+                    if (sid == s.getId()) {
+                        foundSupplier = true;
+                        p.setSupplier(s);
+                        SQLService.addSuppliertoProduct(sid,pid);
+                        NotificationService.sendNotification("Product with id "+ p.getId() + " got assigned the supplier with id " + s.getId());
+                        break;
+                    }
+                }
+                if(!foundSupplier)System.out.println("Nu am gasit supplier cu acest id.");
+                break;
+            }
+        }
+        if(!foundProduct)System.out.println("Nu am gasit produs cu acest id.");
+    }
+
+    public void addSupplierToProductSQL(Shop shop, String line) {
+        int sid,pid;
+        boolean foundSupplier = false;
+        boolean foundProduct = false;
+        try {
+
+            String[] ids = line.split("/");
+            sid = Integer.parseInt(ids[0]);
+            pid = Integer.parseInt(ids[1]);
         }
         catch (NumberFormatException e){
             System.out.println("Input invalid.");

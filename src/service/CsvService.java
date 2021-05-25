@@ -67,6 +67,7 @@ public class CsvService {
 
     public static void loadCvs(Shop shop, ShopService shopService){
         try {
+            SQLService.deleteTables();
             BufferedReader reader = Files.newBufferedReader(Paths.get(FILE_PATH));
             String objectDetails = "";
             while((objectDetails = reader.readLine()) != null) {
